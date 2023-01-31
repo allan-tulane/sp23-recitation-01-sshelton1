@@ -1,6 +1,6 @@
 # CMPS 2200  Recitation 01
 
-**Name (Team Member 1):** Alex Motyka____________  
+**Name (Team Member 1):** Alex Motyka____________
 **Name (Team Member 2):** Shayne Shelton_________
 
 In this recitation, we will investigate asymptotic complexity. Additionally, we will get familiar with the various technologies we'll use for collaborative coding.
