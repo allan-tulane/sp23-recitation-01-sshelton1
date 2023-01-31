@@ -21,11 +21,11 @@ def test_linear_search():
 	assert linear_search([1,2,3,4,5], 6) == -1
 
 def binary_search(mylist, key):
-	""" done. """
-	return _binary_search(mylist, key, 0, len(mylist)-1)
+  """ done. """
+  return _binary_search(mylist, key, 0, len(mylist)-1)
 
 def _binary_search(mylist, key, left, right):
-	"""
+  """
 	Recursive implementation of binary search.
 
 	Params:
@@ -39,19 +39,30 @@ def _binary_search(mylist, key, left, right):
 	"""
 	### TODO
 
-	###
+  if right >= left:
+    index = (right + left) // 2
+    if key == mylist[index]:
+      return index
+    elif mylist[index] > key:
+      return _binary_search(mylist, key, left, index-1)
+    elif mylist[index] < key:
+      return _binary_search(mylist, key, index+1, right)
+
+  else:
+      return -1
+  ###
 
 def test_binary_search():
-	assert binary_search([1,2,3,4,5], 5) == 4
-	assert binary_search([1,2,3,4,5], 1) == 0
-	assert binary_search([1,2,3,4,5], 6) == -1
+  assert binary_search([1,2,3,4,5], 5) == 4
+  assert binary_search([1,2,3,4,5], 1) == 0
+  assert binary_search([1,2,3,4,5], 6) == -1
 	### TODO: add two more tests here.
-
+  assert binary_search([1,2,3,4,5], 284743) == -1
+  assert binary_search([1,2,3,4,5], 4) == 3
 	###
 
-
 def time_search(search_fn, mylist, key):
-	"""
+  """
 	Return the number of milliseconds to run this
 	search function on this list.
 
@@ -69,11 +80,14 @@ def time_search(search_fn, mylist, key):
 	  search function on this input.
 	"""
 	### TODO
-
-	###
+  t_start = time.time()
+  search_fn(mylist, key)
+  t_final = time.time()
+  return 1000 * (t_final - t_start)
+  ###
 
 def compare_search(sizes=[1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]):
-	"""
+  """
 	Compare the running time of linear_search and binary_search
 	for input sizes as given. The key for each search should be
 	-1. The list to search for each size contains the numbers from 0 to n-1,
@@ -88,7 +102,15 @@ def compare_search(sizes=[1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]):
 	  for each method to run on each value of n
 	"""
 	### TODO
-
+  list = []
+  resultList = []
+  for n in sizes:
+    for k in range(n):
+      list.append(k)
+      
+    resultList.append((n, time_search(linear_search, list, -1), time_search(binary_search, list, -1)))
+  return resultList
+    
 	###
 
 def print_results(results):
@@ -105,3 +127,5 @@ def test_compare_search():
 	assert res[1][0] == 100
 	assert res[0][1] < 1
 	assert res[1][1] < 1
+
+print_results(compare_search([10, 100, 1000, 10000, 100000, 1000000, 10000000]))
